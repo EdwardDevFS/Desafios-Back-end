@@ -1,5 +1,24 @@
 {
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  },
+  "name": "backend-coderhouse",
+  "version": "1.0.0",
+  "main": "servidores.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdwardDevFS/Desafios-Back-end.git"
+  },
+  "author": "EdwardDevFS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdwardDevFS/Desafios-Back-end/issues"
+  },
+  "homepage": "https://github.com/EdwardDevFS/Desafios-Back-end#readme",
+  "description": ""
 }
