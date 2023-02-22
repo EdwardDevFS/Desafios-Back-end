@@ -40,7 +40,6 @@ router.post('/:cid/product/:id',(req,res)=>{
         ++agregarCantidad.quantity
     }
     
-    // TODO FALTA VALIDACION
     res.setHeader('Content-Type', 'application/json');
     res.status(201).json({
         message: `Todo OK...`,
