@@ -17,9 +17,16 @@ router.get('/:cid',(req,res)=>{
     let cid = req.params.cid;
     let carrito = carts.find(e=>e.id == cid);
     if(carrito){
-        res.json(carrito)
+        res.setHeader('Content-Type', 'application/json');
+        res.status(201).json({
+            message: `Todo OK...`,
+            carrito 
+        })
     }else{
-        res.send(`No existe el carrito con el ID ${id}`)
+        res.setHeader('Content-Type', 'application/json');
+        res.status(400).json({
+            message: `No existe el carrito con el ID ${cid}`,
+        })
     }
 });
 router.post('/:cid/product/:id',(req,res)=>{
@@ -31,6 +38,12 @@ router.post('/:cid/product/:id',(req,res)=>{
     if(Exists == -1){
         cart.quantity = 1
         let productoFind = carrito.find((index)=> index.code == idP)
+        if(!productoFind){
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({
+                message: `Al parecer no se encontró productos con el id ${idP}`,
+            })
+        }
         cart.id = cid
         cart.product = productoFind.code
         carts.push(cart)
