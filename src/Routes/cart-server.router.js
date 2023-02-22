@@ -1,5 +1,7 @@
 const Router = require('express').Router;
 const router = Router()
+const carrito = require('./Products.router').products
+
 const carts = []
 
 router.get('/',(req,res)=>{
@@ -24,9 +26,20 @@ router.post('/:cid/product/:id',(req,res)=>{
     let cid = req.params.cid;
     let idP = req.params.id;
     let cart = req.body;
-    cart.id = cid
-    cart.product = idP
-    carts.push(cart);
+    let Exists = carts.findIndex((index)=> index.id == cid)
+    console.log(Exists)
+    if(Exists == -1){
+        cart.quantity = 1
+        let productoFind = carrito.find((index)=> index.code == idP)
+        cart.id = cid
+        cart.product = productoFind.code
+        carts.push(cart)
+    }
+    else{
+        let agregarCantidad = carts.find((index)=>index.id == cid)
+        ++agregarCantidad.quantity
+    }
+    
     // TODO FALTA VALIDACION
     res.setHeader('Content-Type', 'application/json');
     res.status(201).json({
@@ -35,4 +48,6 @@ router.post('/:cid/product/:id',(req,res)=>{
     })
 
 })
-module.exports = router
+module.exports = {
+    router
+}

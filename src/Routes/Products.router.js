@@ -1,8 +1,6 @@
 const Router = require('express').Router;
-const Express = require('express');
 const {v4: uuidv4} =  require('uuid');
 const router = Router()
-
 
 
 
@@ -49,14 +47,12 @@ router.post("/",(req,res)=>{
                 message: `Al parecer falta alguno de estos parametros: title, description, price, stock, category`,
             })    
         }   
-        product.cantidad = 1
         product.status = true
         product.code = uuidv4();
         products.push(product);
     }
     else{
-        let asd = products.find((index)=> index.title == product.title)
-        ++asd.cantidad;
+
     }
     
     res.setHeader('Content-Type', 'application/json');
@@ -107,4 +103,7 @@ router.delete("/:id",(req,res)=>{
 
 
 
-module.exports= router, products
+module.exports= {
+    router,
+    products,
+}
