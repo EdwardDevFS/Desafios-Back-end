@@ -1,8 +1,6 @@
 const Router = require('express').Router;
 const router = Router()
-
-let carts = [] 
-
+const carts = []
 
 router.get('/',(req,res)=>{
     res.setHeader('Content-Type', 'application/json');

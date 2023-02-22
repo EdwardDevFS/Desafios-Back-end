@@ -1,10 +1,12 @@
 const Router = require('express').Router;
+const Express = require('express');
 const {v4: uuidv4} =  require('uuid');
 const router = Router()
 
+
+
+
 const products = []
-
-
 
 router.get('/:id',(req,res)=>{
     let id = req.params.id;
@@ -18,6 +20,8 @@ router.get('/:id',(req,res)=>{
 
 router.get("/", (req, res)=>{
     let limit= req.query.limit;
+
+    // ESTE GET SE ENCARGA DE CREAR UN LIMITE DE OBJETOS QUE TRAE DEL ARRAY PRODUCTS
     if(limit){
         let result = []  
         for (let i = 0; i < products.length; i++) {
@@ -36,19 +40,25 @@ router.get("/", (req, res)=>{
 })
 
 router.post("/",(req,res)=>{
-    console.log(req.body)
-
     let product = req.body;
-    if(!product.title && !product.description && !product.price && product.stock && !product.category){
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({
-            message: `Al parecer falta alguno de estos parametros: title, description, price, stock, category`,
-        })    
+    let index = products.findIndex((index)=> index.title == product.title)
+    if(index == -1){
+        if(!product.title && !product.description && !product.price && product.stock && !product.category){
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({
+                message: `Al parecer falta alguno de estos parametros: title, description, price, stock, category`,
+            })    
+        }   
+        product.cantidad = 1
+        product.status = true
+        product.code = uuidv4();
+        products.push(product);
     }
-    product.status = true
-    product.code = uuidv4();
-    products.push(product);
-    // TODO FALTA VALIDACION
+    else{
+        let asd = products.find((index)=> index.title == product.title)
+        ++asd.cantidad;
+    }
+    
     res.setHeader('Content-Type', 'application/json');
     res.status(201).json({
         message: `Todo OK...`,
@@ -97,4 +107,4 @@ router.delete("/:id",(req,res)=>{
 
 
 
-module.exports=router
+module.exports= router, products

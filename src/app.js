@@ -14,6 +14,8 @@ app.get('/',(req,res) =>{
     res.setHeader('Content-Type', 'text/plain')
     res.status(200).send("OK")
 })
+
+
 app.use('/api/products',productsServer)
 app.use('/api/carts',cartServer)
 
