@@ -6,6 +6,8 @@ const port = 8080
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(express.static(__dirname+'/public'))
+
 
 const productsServer = require('./Routes/Products.router').router
 const cartServer = require('./Routes/cart-server.router').router
